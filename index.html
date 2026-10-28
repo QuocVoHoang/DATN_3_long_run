@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Long-Time Engine Benchmark</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <main>
+    <nav><a class="active" href="/">Long-Time Benchmark</a></nav>
+    <h1>Long-Time Stability Benchmark</h1>
+    <section class="panel">
+      <div class="row">
+        <input id="videoFile" type="file" accept="video/*">
+        <div id="meta"></div>
+      </div>
+      <div class="row">
+        <label>Warm-up
+          <input id="warmup" type="number" min="0" step="0.5" value="5">
+        </label>
+        <label>Measure
+          <input id="duration" type="number" min="0.5" step="0.5" value="30">
+        </label>
+        <label>Cooldown
+          <input id="rest" type="number" min="0" step="0.5" value="5">
+        </label>
+      </div>
+      <div class="row">
+        <button id="run" disabled>Run Benchmark</button><button id="stop" disabled>Stop</button><button
+          id="downloadJson" disabled>Download JSON</button><button id="downloadCsv" disabled>Download CSV</button></div>
+      <p id="status">Choose a video.</p>
+    </section>
+    <section class="panel">
+      <table>
+        <thead>
+          <tr>
+            <th>Engine</th>
+            <th>Status</th>
+            <th>Total Frames</th>
+            <th>Processed Frames</th>
+            <th>Skipped Frames</th>
+            <th>Skipped Rate</th>
+            <th>Processed FPS</th>
+            <th>Core Mean</th>
+            <th>Core P95</th>
+            <th>Core P99</th>
+            <th>End-to-End Mean</th>
+            <th>End-to-End P95</th>
+            <th>End-to-End P99</th>
+            <th>Long Tasks</th>
+            <th>Blocking ms</th>
+            <th>Wasm Peak MB</th>
+          </tr>
+        </thead>
+        <tbody id="metrics"></tbody>
+      </table>
+    </section>
+    <section class="panel">
+      <h2>Measurement Windows</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Engine</th>
+            <th>Window</th>
+            <th>Processed FPS</th>
+            <th>Core P95</th>
+            <th>E2E P95</th>
+            <th>Wasm MB</th>
+          </tr>
+        </thead>
+        <tbody id="windows"></tbody>
+      </table>
+    </section><video id="video" hidden muted playsinline></video><canvas id="canvas" hidden></canvas>
+  </main>
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
