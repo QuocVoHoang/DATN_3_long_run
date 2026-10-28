@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Long-Time Diagnostic</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+  <main>
+    <nav><a href="/">Long-Time Benchmark</a><a class="active" href="/diagnostic/" class="active">Diagnostic</a></nav>
+    <h1>Diagnostic</h1>
+    <section class="panel">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <input id="file" type="file" accept="video/*">
+        <div id="meta"></div>
+      </div>
+      <select id="mode">
+        <option value="main">SIMD + pthreads(4) — Main</option>
+        <option value="worker">SIMD + pthreads(4) — Worker + OffscreenCanvas</option>
+      </select>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <label>
+          Warm-up (min)
+          <input id="warmup" type="number" value="5" min="0">
+        </label>
+        <label>
+          Measure (min)
+          <input id="measure" type="number" value="30" min="0.5" step="0.5">
+        </label>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <button id="run" disabled>Run Diagnostic</button>
+        <button id="stop" disabled>Stop</button>
+        <button id="json" disabled>Download JSON</button>
+        <button id="csv" disabled>Download CSV</button>
+      </div>
+      <p id="status">Idle</p>
+    </section>
+    <section class="panel">
+      <table>
+        <thead>
+          <tr>
+            <th>Engine</th>
+            <th>Status</th>
+            <th>Total Frames</th>
+            <th>Processed Frames</th>
+            <th>Skipped Frames</th>
+            <th>FPS</th>
+            <th>Core Mean</th>
+            <th>End-to-End Mean</th>
+            <th>Core P50</th>
+            <th>Core P95</th>
+            <th>Core P99</th>
+          </tr>
+        </thead>
+        <tbody id="result"></tbody>
+      </table>
+    </section><video id="video" hidden muted playsinline></video><canvas id="canvas" hidden></canvas>
+    <script type="module" src="../js/diagnostic.js"></script>
+  </main>
+</body>
+
+</html>
