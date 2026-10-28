@@ -18,13 +18,13 @@
         <div id="meta"></div>
       </div>
       <div class="row">
-        <label>Warm-up
+        <label>Warm-up (min)
           <input id="warmup" type="number" min="0" step="0.5" value="5">
         </label>
-        <label>Measure
+        <label>Measure (min)
           <input id="duration" type="number" min="0.5" step="0.5" value="30">
         </label>
-        <label>Cooldown
+        <label>Cooldown (min)
           <input id="rest" type="number" min="0" step="0.5" value="5">
         </label>
       </div>
@@ -39,41 +39,25 @@
           <tr>
             <th>Engine</th>
             <th>Status</th>
-            <th>Total Frames</th>
-            <th>Processed Frames</th>
-            <th>Skipped Frames</th>
-            <th>Skipped Rate</th>
-            <th>Processed FPS</th>
-            <th>Core Mean</th>
-            <th>Core P95</th>
-            <th>Core P99</th>
-            <th>End-to-End Mean</th>
-            <th>End-to-End P95</th>
-            <th>End-to-End P99</th>
-            <th>Long Tasks</th>
-            <th>Blocking ms</th>
-            <th>Wasm Peak MB</th>
+            <th>Total<br>Frames</th>
+            <th>Processed<br>Frames</th>
+            <th>Skipped<br>Frames</th>
+            <th>Skipped<br>Rate</th>
+            <th>Processed<br>FPS</th>
+            <th>Core<br>Mean</th>
+            <th>Core<br>P95</th>
+            <th>Core<br>P99</th>
+            <th>End-to-End<br>Mean</th>
+            <th>End-to-End<br>P95</th>
+            <th>End-to-End<br>P99</th>
+            <th>Long<br>Tasks</th>
+            <th>Blocking<br>(ms)</th>
           </tr>
         </thead>
         <tbody id="metrics"></tbody>
       </table>
     </section>
-    <section class="panel">
-      <h2>Measurement Windows</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Engine</th>
-            <th>Window</th>
-            <th>Processed FPS</th>
-            <th>Core P95</th>
-            <th>E2E P95</th>
-            <th>Wasm MB</th>
-          </tr>
-        </thead>
-        <tbody id="windows"></tbody>
-      </table>
-    </section><video id="video" hidden muted playsinline></video><canvas id="canvas" hidden></canvas>
+    <video id="video" hidden muted playsinline></video><canvas id="canvas" hidden></canvas>
   </main>
   <script type="module" src="js/app.js"></script>
 </body>
