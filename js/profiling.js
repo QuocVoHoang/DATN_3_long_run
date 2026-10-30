@@ -1,5 +1,5 @@
 export const PROFILE_STAGES = ['bitmapMs', 'drawMs', 'readbackMs', 'wasmCopyMs', 'coreMs',
-  'workerProcessingMs', 'workerRoundTripMs', 'workerTransportAndSchedulingMs', 'e2eMs', 'callbackGapMs'];
+  'workerProcessingMs', 'workerRoundTripMs', 'workerTransportAndSchedulingMs', 'nonCoreMs', 'e2eMs', 'callbackGapMs'];
 export const PROFILE_STATISTICS = ['count', 'mean', 'p50', 'p95', 'p99'];
 export const PROFILE_COLUMNS = PROFILE_STAGES.flatMap(stage => PROFILE_STATISTICS.map(stat => `profile.${stage}.${stat}`));
 export const PROFILE_LABELS = {
@@ -7,6 +7,7 @@ export const PROFILE_LABELS = {
   wasmCopyMs: 'Copy pixels into WASM', coreMs: 'WASM core', workerProcessingMs: 'Worker handler processing',
   workerRoundTripMs: 'Worker round trip (includes processing)',
   workerTransportAndSchedulingMs: 'Transport + scheduling residual (estimate)',
+  nonCoreMs: 'Non-core overhead Δ (e2e - core)',
   e2eMs: 'Callback to result', callbackGapMs: 'Gap between observed callbacks',
 };
 export function distribution(values) {
@@ -18,7 +19,7 @@ export function distribution(values) {
 }
 export function summarizeProfile(samples, callbackGaps = []) {
   return Object.fromEntries(PROFILE_STAGES.map(stage => [stage,
-    distribution(stage === 'callbackGapMs' ? callbackGaps : samples.map(sample => sample.profile?.[stage]))]));
+    stage !== 'callbackGapMs' && samples.distribution ? samples.distribution(stage) : distribution(stage === 'callbackGapMs' ? callbackGaps : samples.map(sample => sample.profile?.[stage]))]));
 }
 export function profileField(record, key) {
   const [, stage, statistic] = key.split('.');

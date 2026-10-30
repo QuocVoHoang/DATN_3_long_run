@@ -1,5 +1,12 @@
 {
   "private": true,
   "type": "module",
-  "scripts": { "test": "node --test tests/*.test.mjs" }
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "smoke": "node tests/smoke.mjs",
+    "fixture": "ffmpeg -y -f lavfi -i testsrc2=size=320x180:rate=30 -t 2 -c:v libx264 -pix_fmt yuv420p -threads 1 -map_metadata -1 tests/fixtures/smoke.mp4"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
 }

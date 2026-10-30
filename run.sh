@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"; PORT="${1:-8091}"
-"$ROOT/build_wasm.sh"
-python3 "$ROOT/server.py" "$PORT" & PID=$!
-trap 'kill "$PID" 2>/dev/null || true' EXIT INT TERM
-sleep 0.5
-URL="http://localhost:${PORT}"; echo "Running at $URL"
-command -v open >/dev/null && open "$URL" || true
-wait "$PID"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+[[ -f "$ROOT/build/motion_engine.wasm" ]] || { echo 'Missing artifact: run ./build_wasm.sh first' >&2; exit 1; }
+exec python3 "$ROOT/server.py" "$@"

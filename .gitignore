@@ -1,0 +1,4 @@
+node_modules/
+__pycache__/
+tests/fixtures/*.mp4
+*.pem

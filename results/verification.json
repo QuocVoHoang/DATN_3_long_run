@@ -1,0 +1,49 @@
+{
+  "kind": "correctness-and-short-smoke-only",
+  "buildId": "799856e864631b0cfdd8678657a2a13fb05d884aff6b2090ff5fb373642cf0a9",
+  "compiler": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 5.0.3 (285c424dfa9e83b03cf8490c65ceadb7c45f28eb)\nCopyright (C) 2026 the Emscripten authors (see AUTHORS.txt)\nThis is free and open source software under the MIT license.\nThere is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+  "browserVersion": "156.0.8078.76",
+  "oracle": {
+    "cases": 504,
+    "partitions": [
+      1,
+      2,
+      4
+    ],
+    "seed": "0x12345678",
+    "simdAndPthreads": true
+  },
+  "ui": {
+    "benchmarkStatus": "ok",
+    "diagnosticStatus": "stopped",
+    "exportsAgree": true
+  },
+  "modes": [
+    {
+      "engine": "simd-pthread-4-main",
+      "status": "ok",
+      "completedWithinWindow": 10,
+      "cleanupStatus": "ok",
+      "wasmMemoryStatus": "observed"
+    },
+    {
+      "engine": "simd-pthread-4-worker-offscreen",
+      "status": "ok",
+      "completedWithinWindow": 11,
+      "cleanupStatus": "ok",
+      "wasmMemoryStatus": "observed"
+    }
+  ],
+  "limits": [
+    "No Safari/iOS or physical device validation",
+    "No 4K sustained run or speedup claim",
+    "Persistent thread pool, manual gray/blur SIMD and LTO await measurements"
+  ],
+  "checks": {
+    "nodeTestsPassed": 31,
+    "serverTestsPassed": 2,
+    "repeatedBuildIdentical": true,
+    "diffCheck": "passed",
+    "shellAndJsSyntax": "passed"
+  }
+}

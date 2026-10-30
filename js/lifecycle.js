@@ -123,7 +123,7 @@ export class WorkerClient {
     worker.onmessage = ({ data }) => {
       const item = this.pending.get(data?.requestId);
       if (!item) return;
-      if (data.type === 'error') this.fail(fault('WORKER_ERROR', data.message || 'Worker error'));
+      if (data.type === 'error') { const error = fault(data.code || 'WORKER_ERROR', data.message || 'Worker error'); error.workerConfirmed = true; this.fail(error); }
       else if (data.type === item.expected) item.finish(null, { ...data, receivedAt: performance.now() });
       else this.fail(fault('WORKER_PROTOCOL', `Unexpected worker response: ${data.type}`));
     };
@@ -166,7 +166,7 @@ export class WorkerClient {
       if (performance.now() >= deadline) return null;
       hooks.onSending?.();
       const result = this.request('frame', 'result', { frameId: this.id + 1, mediaTime: metadata.mediaTime,
-        presentedFrames: metadata.presentedFrames, width: video.videoWidth, height: video.videoHeight, bitmap }, [bitmap], signal, this.limits.frame, timestamp => { sentAt = timestamp; transferred = true; hooks.onSubmitted?.(); });
+        presentedFrames: metadata.presentedFrames, width: video.videoWidth, height: video.videoHeight, bitmap, ...hooks.telemetry }, [bitmap], signal, this.limits.frame, timestamp => { sentAt = timestamp; transferred = true; hooks.onSubmitted?.(); });
       const out = await result;
       const workerRoundTripMs = out.receivedAt - sentAt;
       const workerProcessingMs = out.profile?.workerProcessingMs;
