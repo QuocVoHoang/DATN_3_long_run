@@ -41,6 +41,14 @@
     </section>
     <video id="video" hidden muted playsinline></video><canvas id="canvas" hidden></canvas>
   </main>
+  <script>
+    if (!window.crossOriginIsolated && window.isSecureContext && !sessionStorage.getItem('coi_reload')) {
+      sessionStorage.setItem('coi_reload', '1');
+      fetch(location.href, { cache: 'reload' }).finally(() => location.reload());
+    } else {
+      sessionStorage.removeItem('coi_reload');
+    }
+  </script>
   <script type="module" src="js/app.js"></script>
 </body>
 
